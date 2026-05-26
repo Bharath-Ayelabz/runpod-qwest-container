@@ -26,7 +26,7 @@ R2_BUCKET_NAME="${R2_BUCKET_NAME:-ayeboard}"
 
 # Model config
 MODEL_REMOTE_PATH="${MODEL_REMOTE_PATH:-qwest-llm/qwest-v11-q4_k_m.gguf}"
-IMAGE_NAME="${IMAGE_NAME:-ghcr.io/bharath-ayelabz/runpod-qwest-server:latest}"
+IMAGE_NAME="ghcr.io/bharath-ayelabz/runpod-qwest-server:latest"
 PORT="${PORT:-8080}"
 CTX_SIZE="${CTX_SIZE:-2048}"
 N_GPU_LAYERS="${N_GPU_LAYERS:-99}"
@@ -57,8 +57,7 @@ RESP=$(curl -s -X POST "https://rest.runpod.io/v1/pods" \
             \"CTX_SIZE\": \"$CTX_SIZE\",
             \"N_GPU_LAYERS\": \"$N_GPU_LAYERS\"
         },
-        \"ports\": [\"$PORT/http\"],
-        \"isPublic\": true
+        \"ports\": [\"$PORT/http\"]
     }")
 
 echo "Response: $RESP"
@@ -82,7 +81,7 @@ for i in $(seq 1 90); do
     sleep 10
     STATUS=$(curl -s "https://rest.runpod.io/v1/pods/$POD_ID" \
         -H "Authorization: Bearer $RUNPOD_API_KEY" \
-        | python3 -c "import sys,json; d=json.load(sys.stdin); print(d.get('runtime',{}).get('desiredStatus','') or d.get('status','') or 'UNKNOWN')" 2>/dev/null || echo "UNKNOWN")
+        | python3 -c "import sys,json; d=json.load(sys.stdin); print(d.get('runtime',{}).get('desiredStatus') or d.get('desiredStatus') or 'UNKNOWN')" 2>/dev/null || echo "UNKNOWN")
     echo "  [$i] Status: $STATUS"
     if [ "$STATUS" = "RUNNING" ]; then
         break

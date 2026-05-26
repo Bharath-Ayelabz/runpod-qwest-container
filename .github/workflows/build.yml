@@ -33,3 +33,19 @@ jobs:
           platforms: linux/amd64
           cache-from: type=gha
           cache-to: type=gha,mode=max
+      
+      - name: Make package public
+        run: |
+          # Get package info first
+          PACKAGE_INFO=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+              "https://api.github.com/user/packages/container/runpod-qwest-server")
+          echo "Package info: $PACKAGE_INFO"
+          
+          # Try to set visibility to public via API
+          # GH API endpoint for package visibility
+          curl -s -X PUT \
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            "https://api.github.com/user/packages/container/runpod-qwest-server/visibility" \
+            -d '{"visibility":"public"}' | head -20
