@@ -2,11 +2,6 @@ name: Build and Push Container
 
 on:
   workflow_dispatch:
-    inputs:
-      image_tag:
-        description: 'Image tag (e.g. v2, latest)'
-        required: false
-        default: 'latest'
 
 jobs:
   build:
@@ -34,11 +29,10 @@ jobs:
         with:
           context: .
           push: true
-          tags: |
-            ghcr.io/bharath-ayelabz/runpod-qwest-server:${{ inputs.image_tag }}
+          tags: ghcr.io/bharath-ayelabz/runpod-qwest-server:v2
           platforms: linux/amd64
           cache-from: type=gha
           cache-to: type=gha,mode=max
       
       - name: Output tag
-        run: echo "Image tag: ghcr.io/bharath-ayelabz/runpod-qwest-server:${{ inputs.image_tag }}"
+        run: echo "Image pushed: ghcr.io/bharath-ayelabz/runpod-qwest-server:v2"
