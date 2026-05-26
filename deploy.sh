@@ -26,7 +26,7 @@ R2_BUCKET_NAME="${R2_BUCKET_NAME:-ayeboard}"
 
 # Model config
 MODEL_REMOTE_PATH="${MODEL_REMOTE_PATH:-qwest-llm/qwest-v11-q4_k_m.gguf}"
-IMAGE_NAME="ghcr.io/bharath-ayelabz/runpod-qwest-server:latest"
+IMAGE_NAME="ghcr.io/bharath-ayelabz/runpod-qwest-server:v2"
 PORT="${PORT:-8080}"
 CTX_SIZE="${CTX_SIZE:-2048}"
 N_GPU_LAYERS="${N_GPU_LAYERS:-99}"
