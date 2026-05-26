@@ -1,0 +1,7 @@
+POD_ID=n2gpu5z24ozfil
+ENDPOINT=https://n2gpu5z24ozfil.proxy.runpod.net
+MODEL=r2://ayeboard/qwest-llm/qwest-v11-q4_k_m.gguf
+PORT=8080
+IMAGE=ghcr.io/bharath-ayelabz/runpod-qwest-server:latest
+DEPLOYED_AT=2026-05-26T03:20:26Z
+GPU_TYPE=NVIDIA RTX A5000
